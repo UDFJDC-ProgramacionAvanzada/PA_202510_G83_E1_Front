@@ -1,7 +1,12 @@
-import HomePage from "./HomePage";
+import HomePage from "./components/HomePage";
+import "./components/SharedStyles.css";  // Importas estilos globales (muy recomendado)
 
 function App() {
-  return <HomePage />;
+  return (
+    <div>
+      <HomePage />
+    </div>
+  );
 }
 
 export default App;

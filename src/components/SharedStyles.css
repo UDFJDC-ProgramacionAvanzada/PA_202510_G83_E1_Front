@@ -1,0 +1,58 @@
+/* Fondo y fuente global */
+body {
+  background-color: #f0f4f8;
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Tarjeta reutilizable */
+.card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 600px;
+}
+
+/* Título reutilizable */
+.title {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+/* Botón primario */
+.button-primary {
+  background-color: #2d8cff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 16px;
+}
+
+.button-primary:hover {
+  background-color: #1c6fd8;
+}
+
+/* Etiquetas reutilizables */
+.tag {
+  display: inline-block;
+  background-color: #e0e0e0;
+  border-radius: 12px;
+  padding: 4px 8px;
+  font-size: 12px;
+  color: #333;
+}
+
+/* Texto gris pequeño */
+.text-muted {
+  text-align: center;
+  color: #777;
+  font-size: 14px;
+}
