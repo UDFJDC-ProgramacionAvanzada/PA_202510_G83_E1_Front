@@ -1,37 +1,19 @@
-import gradHatImg from "../assets/logo.png";  // tu imagen de sombrero
+import { useTranslation } from "react-i18next";
 
 export default function Sidebar({ onSectionChange }) {
+  const { t } = useTranslation();
+
   return (
     <aside className="sidebar">
-      <div style={{ display: "flex", alignItems: "center", marginBottom: "20px" }}>
-        <img
-          src={gradHatImg}
-          alt="Logo EduSync+"
-          style={{
-            width: "32px",
-            height: "32px",
-            marginRight: "10px",
-            objectFit: "contain",
-          }}
-        />
-        <div
-          style={{
-            fontSize: "20px",
-            fontWeight: "bold",
-            display: "flex",
-            alignItems: "flex-end",  // baja un poco el texto
-          }}
-        >
-          <span style={{ color: "#000" }}>Edu</span>
-          <span style={{ color: "#2d8cff" }}>Sync+</span>
-        </div>
-      </div>
-
+      <div className="logo">EduSync+</div>
       <nav className="nav">
         <ul>
-          <li onClick={() => onSectionChange("home")}>Home</li>
-          <li onClick={() => onSectionChange("books")}>Buscar libros</li>
-          <li onClick={() => onSectionChange("tasks")}>Tasks</li>
+          <li onClick={() => onSectionChange("home")}>{t("sidebar.home")}</li>
+          <li onClick={() => onSectionChange("tasks")}>{t("sidebar.tasks")}</li>
+          <li onClick={() => onSectionChange("books")}>{t("sidebar.books")}</li>
+          <li onClick={() => onSectionChange("pdfUpload")}>{t("sidebar.upload_pdf")}</li>
+          <li onClick={() => onSectionChange("planner")}>{t("sidebar.planner")}</li>
+          <li onClick={() => onSectionChange("chatbot")}>{t("sidebar.chatbot")}</li>
         </ul>
       </nav>
     </aside>

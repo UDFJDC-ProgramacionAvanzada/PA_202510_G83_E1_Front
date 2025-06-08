@@ -1,68 +1,84 @@
 import { useState } from "react";
-import TaskItem from "./TaskItem";
-import "./SharedStyles.css";
+import { useTranslation } from "react-i18next";
 
 export default function TaskList() {
-  const [selectedSubject, setSelectedSubject] = useState("Todas");
+  const { t } = useTranslation();
+  const [tasks, setTasks] = useState([]);
+  const [newTask, setNewTask] = useState("");
+  const [newDescription, setNewDescription] = useState("");
 
-  const [tasks, setTasks] = useState([
-    { id: 1, name: "Estudiar integrales", subject: "Matemáticas", completed: false },
-    { id: 2, name: "Leer capítulo de historia", subject: "Historia", completed: false },
-    { id: 3, name: "Resolver ejercicios de física", subject: "Física", completed: false },
-    { id: 4, name: "Preparar informe de química", subject: "Química", completed: false },
-    { id: 5, name: "Escribir ensayo de filosofía", subject: "Filosofía", completed: false },
-  ]);
+  const addTask = () => {
+    if (!newTask.trim()) return;
 
-  const toggleComplete = (id) => {
-    const updatedTasks = tasks.map((task) =>
-      task.id === id ? { ...task, completed: !task.completed } : task
-    );
-    setTasks(updatedTasks);
+    const task = {
+      id: Date.now(),
+      title: newTask,
+      description: newDescription,
+      completed: false
+    };
+
+    setTasks([...tasks, task]);
+    setNewTask("");
+    setNewDescription("");
   };
 
-  // Obtener lista única de materias
-  const subjects = ["Todas", ...new Set(tasks.map((task) => task.subject))];
-
-  // Filtrar tareas por materia
-  const filteredTasks =
-    selectedSubject === "Todas"
-      ? tasks
-      : tasks.filter((task) => task.subject === selectedSubject);
+  const toggleTask = (id) => {
+    setTasks(
+      tasks.map((task) =>
+        task.id === id ? { ...task, completed: !task.completed } : task
+      )
+    );
+  };
 
   return (
-    <section className="card" style={{ marginTop: "20px", maxWidth: "1000px" }}>
-      <h2 className="title">Mis Tareas</h2>
+    <section className="task-section">
+      <h2 className="section-title">{t("tasks.title")}</h2>
 
-      {/* Dropdown de materias */}
-      <div style={{ marginBottom: "20px" }}>
-        <label style={{ marginRight: "10px", fontWeight: "bold" }}>
-          Filtrar por materia:
-        </label>
-        <select
-          value={selectedSubject}
-          onChange={(e) => setSelectedSubject(e.target.value)}
-          style={{
-            padding: "8px",
-            borderRadius: "8px",
-            border: "1px solid #ccc",
-          }}
-        >
-          {subjects.map((subject) => (
-            <option key={subject} value={subject}>
-              {subject}
-            </option>
-          ))}
-        </select>
+      <div className="task-form card">
+        <input
+          type="text"
+          value={newTask}
+          onChange={(e) => setNewTask(e.target.value)}
+          placeholder={t("tasks.task_placeholder")}
+          className="status-input"
+        />
+        <textarea
+          value={newDescription}
+          onChange={(e) => setNewDescription(e.target.value)}
+          placeholder={t("tasks.description_placeholder")}
+          className="status-input"
+          rows="3"
+          style={{ marginTop: "10px" }}
+        ></textarea>
+        <button onClick={addTask} className="button-primary" style={{ marginTop: "10px" }}>
+          {t("tasks.add_button")}
+        </button>
       </div>
 
-      {/* Lista de tareas */}
-      {filteredTasks.length === 0 ? (
-        <p className="text-muted">No hay tareas para esta materia.</p>
-      ) : (
-        filteredTasks.map((task) => (
-          <TaskItem key={task.id} task={task} onToggleComplete={toggleComplete} />
-        ))
-      )}
+      <div className="task-list card">
+        {tasks.length === 0 ? (
+          <p className="text-muted">{t("tasks.no_tasks")}</p>
+        ) : (
+          tasks.map((task) => (
+            <div key={task.id} className="task-item" style={{ padding: "10px 0", borderBottom: "1px solid #eee" }}>
+              <input
+                type="checkbox"
+                checked={task.completed}
+                onChange={() => toggleTask(task.id)}
+                style={{ marginRight: "10px" }}
+              />
+              <div style={{ flex: 1 }}>
+                <strong style={{ textDecoration: task.completed ? "line-through" : "none" }}>
+                  {task.title}
+                </strong>
+                <p style={{ margin: "4px 0", fontSize: "14px", color: "#555" }}>
+                  {task.description}
+                </p>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
     </section>
   );
 }

@@ -1,66 +1,83 @@
 import { useState } from "react";
-import BookList from "./BookList";
-import "./SharedStyles.css";
+import { useTranslation } from "react-i18next";
 
 export default function BookSearch() {
-  const [query, setQuery] = useState("");
+  const { t } = useTranslation();
 
-  const [books, setBooks] = useState([
-    { id: 1, title: "Matemáticas Avanzadas", author: "Carlos Pérez", subject: "Matemáticas", favorite: false },
-    { id: 2, title: "Historia de Colombia", author: "Laura Gómez", subject: "Historia", favorite: false },
-    { id: 3, title: "Física para principiantes", author: "Andrés Martínez", subject: "Física", favorite: false },
-    { id: 4, title: "Química Orgánica I", author: "Ana Ramírez", subject: "Química", favorite: false },
-    { id: 5, title: "Biología Celular", author: "José Torres", subject: "Biología", favorite: false },
-    { id: 6, title: "Lengua Castellana", author: "Marta Rodríguez", subject: "Lenguaje", favorite: false },
-    { id: 7, title: "Programación en Python", author: "Juan López", subject: "Informática", favorite: false },
-    { id: 8, title: "Introducción a la Economía", author: "María Fernández", subject: "Economía", favorite: false },
-    { id: 9, title: "Filosofía Moderna", author: "Ricardo Díaz", subject: "Filosofía", favorite: false },
-    { id: 10, title: "Arte y Creatividad", author: "Isabel Ramírez", subject: "Arte", favorite: false },
-  ]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [favorites, setFavorites] = useState([]);
+  const books = [
+    { id: 1, title: "Cálculo I", author: "James Stewart" },
+    { id: 2, title: "Programación en JavaScript", author: "Douglas Crockford" },
+    { id: 3, title: "Historia de la Humanidad", author: "Yuval Noah Harari" }
+  ];
 
-  const toggleFavorite = (id) => {
-    const updatedBooks = books.map((book) =>
-      book.id === id ? { ...book, favorite: !book.favorite } : book
-    );
-    setBooks(updatedBooks);
+  const addFavorite = (book) => {
+    if (!favorites.some((fav) => fav.id === book.id)) {
+      setFavorites([...favorites, book]);
+    }
+  };
+
+  const removeFavorite = (book) => {
+    setFavorites(favorites.filter((fav) => fav.id !== book.id));
   };
 
   const filteredBooks = books.filter((book) =>
-    book.subject.toLowerCase().includes(query.toLowerCase()) ||
-    book.title.toLowerCase().includes(query.toLowerCase())
+    book.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const favoriteBooks = books.filter((book) => book.favorite);
-
   return (
-    <section
-      className="card"
-      style={{ marginTop: "20px", maxWidth: "1000px" }}  // ✅ aquí aplicamos la opción rápida
-    >
-      <h2 className="title">Buscar libros por materia</h2>
+    <section className="book-search-section">
+      <h2 className="section-title">{t("booksearch.title")}</h2>
       <input
         type="text"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder="Escribe la materia o título..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        placeholder={t("booksearch.search_placeholder")}
         className="status-input"
         style={{ marginBottom: "20px" }}
       />
 
       <div style={{ display: "flex", gap: "20px" }}>
-        {/* Columna izquierda - Resultados */}
-        <div style={{ flex: 2 }}>
-          <h3>Resultados de búsqueda</h3>
-          <BookList books={filteredBooks} onToggleFavorite={toggleFavorite} />
+        {/* Libros encontrados */}
+        <div style={{ flex: 1 }} className="card">
+          <h3>{t("booksearch.results")}</h3>
+          {filteredBooks.length === 0 ? (
+            <p className="text-muted">{t("booksearch.no_results")}</p>
+          ) : (
+            filteredBooks.map((book) => (
+              <div key={book.id} style={{ padding: "10px 0", borderBottom: "1px solid #eee" }}>
+                <strong>{book.title}</strong> - {book.author}
+                <button
+                  onClick={() => addFavorite(book)}
+                  className="button-primary"
+                  style={{ marginLeft: "10px" }}
+                >
+                  {t("booksearch.add_favorite")}
+                </button>
+              </div>
+            ))
+          )}
         </div>
 
-        {/* Columna derecha - Favoritos */}
-        <div style={{ flex: 1 }}>
-          <h3>Libros favoritos ⭐</h3>
-          {favoriteBooks.length === 0 ? (
-            <p className="text-muted">Aún no has marcado libros como favoritos.</p>
+        {/* Favoritos */}
+        <div style={{ flex: 1 }} className="card">
+          <h3>{t("booksearch.favorites")}</h3>
+          {favorites.length === 0 ? (
+            <p className="text-muted">{t("booksearch.no_favorites")}</p>
           ) : (
-            <BookList books={favoriteBooks} onToggleFavorite={toggleFavorite} />
+            favorites.map((book) => (
+              <div key={book.id} style={{ padding: "10px 0", borderBottom: "1px solid #eee" }}>
+                <strong>{book.title}</strong> - {book.author}
+                <button
+                  onClick={() => removeFavorite(book)}
+                  className="button-secondary"
+                  style={{ marginLeft: "10px" }}
+                >
+                  {t("booksearch.remove_favorite")}
+                </button>
+              </div>
+            ))
           )}
         </div>
       </div>

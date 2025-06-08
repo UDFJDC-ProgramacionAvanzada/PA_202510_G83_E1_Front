@@ -1,27 +1,86 @@
 /* Fondo y fuente global */
-body {
+html, body {
+  width: 100%;
+  overflow-x: hidden;
   background-color: #f0f4f8;
   font-family: 'Arial', sans-serif;
   margin: 0;
   padding: 0;
 }
 
-/* Tarjeta reutilizable */
-.card {
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  margin: 20px auto;
-  max-width: 600px;
+.layout {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100vw;
+  box-sizing: border-box;
 }
 
-/* Título reutilizable */
-.title {
-  font-size: 24px;
-  color: #333;
-  margin-bottom: 16px;
-  text-align: center;
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  background-color: #ffffff;
+  border-right: 1px solid #ddd;
+  padding: 20px;
+  box-sizing: border-box;
+  transition: left 0.3s ease;
+  z-index: 1000;
+  will-change: left;
+}
+
+.sidebar .logo {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.sidebar .nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar .nav li {
+  padding: 10px 0;
+  cursor: pointer;
+}
+
+.sidebar .nav li:hover {
+  color: #2d8cff;
+}
+
+/* Main content */
+.main {
+  flex: 1;
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+  transition: margin-left 0.3s ease;
+}
+
+/* Top header */
+.top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  border-bottom: 1px solid #ddd;
+  background-color: #fff;
+  position: relative;
+  z-index: 1001;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.user-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
 }
 
 /* Botón primario */
@@ -40,19 +99,299 @@ body {
   background-color: #1c6fd8;
 }
 
-/* Etiquetas reutilizables */
-.tag {
-  display: inline-block;
-  background-color: #e0e0e0;
-  border-radius: 12px;
-  padding: 4px 8px;
-  font-size: 12px;
+/* Botón secundario */
+.button-secondary {
+  background-color: #f0f0f0;
   color: #333;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 16px;
 }
 
-/* Texto gris pequeño */
-.text-muted {
-  text-align: center;
-  color: #777;
-  font-size: 14px;
+.button-secondary:hover {
+  background-color: #e0e0e0;
+}
+
+/* Notification badge */
+.notification-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  border-radius: 50%;
+}
+
+/* Notification panel */
+.notification-panel {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  width: 300px;
+  max-height: 400px;
+  overflow-y: auto;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  z-index: 9999;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+/* Botón hamburguesa */
+.hamburger {
+  display: none;
+  cursor: pointer;
+}
+
+/* Overlay para sidebar en móvil */
+.overlay {
+  display: none;
+}
+
+.overlay.active {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 1000;
+  box-sizing: border-box; /* importante */
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  /* Layout → columna */
+  .layout {
+    flex-direction: column;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -220px;
+    width: 220px;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    transition: left 0.3s ease;
+    z-index: 1001;
+    padding: 20px;
+  }
+
+  .sidebar.sidebar-open {
+    left: 0;
+    right: auto;
+  }
+
+  .main {
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .top-header {
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+  }
+
+  .user-info {
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Oculta botones en TopHeader */
+  .user-actions {
+    display: none;
+  }
+
+  /* Avatar más pequeño */
+  .user-info img {
+    width: 40px !important;
+    height: 40px !important;
+    margin-right: 8px;
+  }
+
+  /* Oculta tags y descripción */
+  .user-tags {
+    display: none;
+  }
+
+  .user-desc {
+    display: none;
+  }
+
+  .notification-panel {
+    right: 10px !important;
+    width: 90% !important;
+  }
+
+  /* Mejora input */
+  .status-input {
+    width: 100% !important;
+    margin-bottom: 16px;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Sección Publicaciones */
+  .community-section {
+    padding: 10px;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden; /* adicional */
+  }
+
+  .section-title {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Post card → columna en móvil */
+  .post-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 16px;
+    margin-bottom: 16px;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden; /* adicional */
+  }
+
+  .post-image {
+    width: 80px !important;
+    height: auto;
+    margin-bottom: 12px;
+    max-width: 100%;
+  }
+
+  .post-content {
+    padding: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden; /* adicional */
+  }
+
+  .post-title {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+
+  .post-description {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  /* Mejora distribución etiquetas */
+  .post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+
+  .post-author {
+    font-size: 12px;
+    color: #555;
+  }
+}
+
+/* Hard cap para evitar scroll lateral */
+.main * {
+  max-width: 100% !important;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+/* Formulario de creación de comunidad */
+.community-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+}
+
+.community-form input {
+  max-width: 400px;
+}
+
+.community-form button {
+  align-self: flex-start;
+}
+/* Chatbot messages container */
+.chatbot-messages {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;         /* Esto es CLAVE → evita el estiramiento de las burbujas */
+  justify-content: flex-start;
+  max-height: 350px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin-bottom: 16px;
+  border: 1px solid #ddd;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: #fafafa;
+  box-sizing: border-box;
+}
+
+/* Chatbot message bubbles (user) */
+.chatbot-message.user {
+  display: inline-block;           /* CLAVE → NO block, NO flex */
+  align-self: flex-end;
+  background-color: #2d8cff;
+  color: #fff;
+  border-radius: 12px;
+  padding: 6px 10px;
+  margin-bottom: 8px;
+  max-width: 80%;
+  box-sizing: border-box;
+
+  overflow: visible !important;
+  overflow-x: hidden;
+  white-space: pre-wrap !important;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+/* Chatbot message bubbles (bot) */
+.chatbot-message.bot {
+  display: inline-block;           /* CLAVE → NO block, NO flex */
+  align-self: flex-start;
+  background-color: #e0e0e0;
+  color: #333;
+  border-radius: 12px;
+  padding: 6px 10px;
+  margin-bottom: 8px;
+  max-width: 80%;
+  box-sizing: border-box;
+
+  overflow: visible !important;
+  overflow-x: hidden;
+  white-space: pre-wrap !important;
+  word-wrap: break-word;
+  word-break: break-word;
 }

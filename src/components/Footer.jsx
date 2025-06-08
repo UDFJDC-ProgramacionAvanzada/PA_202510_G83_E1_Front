@@ -1,12 +1,11 @@
+import { useTranslation } from "react-i18next";
+
 export default function Footer() {
+  const { t } = useTranslation();
+
   return (
-    <>
-      <div className="footer-message text-muted">
-        Stay connected and engaged with your student community.
-      </div>
-      <footer className="footer">
-        © 2025 EduPlatform. Todos los derechos reservados.
-      </footer>
-    </>
+    <footer className="footer" style={{ textAlign: "center", padding: "10px 0", fontSize: "14px", color: "#777" }}>
+      © 2025 EduPlatform. {t("footer.rights")}
+    </footer>
   );
 }

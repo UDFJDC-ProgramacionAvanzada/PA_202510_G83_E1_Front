@@ -1,0 +1,54 @@
+{
+  "welcome": "Bienvenido, {{name}}.",
+  "search_placeholder": "¿En qué estás pensando, {{name}}?",
+  "tasks": "Tareas",
+  "books": "Buscar libros",
+  "upload_pdf": "Cargar Libros Guía",
+  "communities": "Comunidades de Estudio",
+  "chatbot_title": "Chat con EduBot",
+  "chatbot_placeholder": "Escribe tu mensaje...",
+  "student": "Estudiante",
+  "second_year": "Segundo año",
+  "user_description": "Emocionado por conocer a otros compañer@s !!!",
+  "settings": "Configuración",
+  "edit_profile": "Editar perfil",
+  "sidebar": {
+  "home": "Inicio",
+  "tasks": "Tareas",
+  "books": "Buscar libros",
+  "upload_pdf": "Cargar Libros Guía",
+  "planner": "Calendario",
+  "chatbot": "ChatBot"
+},
+"community": {
+  "title": "Publicaciones de la Comunidad",
+  "post_image_alt": "Imagen del recurso",
+  "post_title": "Título de la publicación {{number}}",
+  "post_description": "Texto breve del recurso o evento compartido.",
+  "tag1": "Etiqueta 1",
+  "tag2": "Etiqueta 2",
+  "author": "Autor del recurso"
+},
+"tasks": {
+  "title": "Tareas",
+  "task_placeholder": "Escribe una nueva tarea...",
+  "description_placeholder": "Descripción de la tarea (opcional)...",
+  "add_button": "Agregar tarea",
+  "no_tasks": "No hay tareas pendientes."
+},
+"booksearch": {
+  "title": "Buscar Libros",
+  "search_placeholder": "Buscar libros por título...",
+  "results": "Resultados de búsqueda",
+  "no_results": "No se encontraron libros.",
+  "add_favorite": "Agregar a favoritos",
+  "remove_favorite": "Quitar de favoritos",
+  "favorites": "Libros favoritos",
+  "no_favorites": "Aún no tienes libros favoritos."
+},
+"footer": {
+  "rights": "Todos los derechos reservados."
+}
+
+}
+

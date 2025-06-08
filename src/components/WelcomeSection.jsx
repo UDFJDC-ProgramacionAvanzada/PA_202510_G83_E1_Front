@@ -1,12 +1,15 @@
+import { useTranslation } from "react-i18next";
+
 export default function WelcomeSection() {
+  const { t } = useTranslation();
+
   return (
     <section className="welcome-section">
-      <h1>Bienvenido, Juan Carlos.</h1>
-      <p className="subtitle">Conéctate con Compañer@s</p>
+      <h1>{t("welcome", { name: "Juan Carlos" })}</h1>
       <input
         type="text"
         className="status-input"
-        placeholder="¿En qué estás pensando, Juan Carlos?"
+        placeholder={t("search_placeholder", { name: "Juan Carlos" })}
       />
     </section>
   );

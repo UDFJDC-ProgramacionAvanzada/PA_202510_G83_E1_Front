@@ -1,0 +1,53 @@
+{
+  "welcome": "Welcome, {{name}}.",
+  "search_placeholder": "What are you thinking about, {{name}}?",
+  "tasks": "Tasks",
+  "books": "Search books",
+  "upload_pdf": "Upload Guide Books",
+  "communities": "Study Communities",
+  "chatbot_title": "Chat with EduBot",
+  "chatbot_placeholder": "Type your message...",
+  "student": "Student",
+  "second_year": "Second year",
+  "user_description": "Excited to meet other fellow students!",
+  "settings": "Settings",
+  "edit_profile": "Edit profile",
+  "sidebar": {
+  "home": "Home",
+  "tasks": "Tasks",
+  "books": "Search books",
+  "upload_pdf": "Upload Guide Books",
+  "planner": "Planner",
+  "chatbot": "ChatBot"
+},
+"community": {
+  "title": "Community Posts",
+  "post_image_alt": "Resource image",
+  "post_title": "Post title {{number}}",
+  "post_description": "Brief text about the shared resource or event.",
+  "tag1": "Tag 1",
+  "tag2": "Tag 2",
+  "author": "Resource author"
+},
+"tasks": {
+  "title": "Tasks",
+  "task_placeholder": "Enter a new task...",
+  "description_placeholder": "Task description (optional)...",
+  "add_button": "Add task",
+  "no_tasks": "No pending tasks."
+},
+"booksearch": {
+  "title": "Search Books",
+  "search_placeholder": "Search books by title...",
+  "results": "Search results",
+  "no_results": "No books found.",
+  "add_favorite": "Add to favorites",
+  "remove_favorite": "Remove from favorites",
+  "favorites": "Favorite books",
+  "no_favorites": "You have no favorite books yet."
+},
+"footer": {
+  "rights": "All rights reserved."
+}
+  
+}

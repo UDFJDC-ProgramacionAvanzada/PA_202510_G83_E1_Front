@@ -1,10 +1,13 @@
+import { useTranslation } from "react-i18next";
 import postLogo from "../assets/publicacion.png";
 
 export default function CommunitySection() {
+  const { t } = useTranslation();
+
   return (
     <section className="community-section">
       <div className="community-header">
-        <h2 className="section-title">Publicaciones de la Comunidad</h2>
+        <h2 className="section-title">{t("community.title")}</h2>
       </div>
       <div className="post-area">
         <div className="post-list">
@@ -12,19 +15,19 @@ export default function CommunitySection() {
             <div key={n} className="post-card card">
               <img
                 src={postLogo}
-                alt="Imagen del recurso"
+                alt={t("community.post_image_alt")}
                 className="post-image"
               />
               <div className="post-content">
-                <h3 className="post-title">Título de la publicación {n}</h3>
+                <h3 className="post-title">{t("community.post_title", { number: n })}</h3>
                 <p className="post-description">
-                  Texto breve del recurso o evento compartido.
+                  {t("community.post_description")}
                 </p>
                 <div className="post-tags">
-                  <span className="tag">Etiqueta 1</span>
-                  <span className="tag">Etiqueta 2</span>
+                  <span className="tag">{t("community.tag1")}</span>
+                  <span className="tag">{t("community.tag2")}</span>
                 </div>
-                <div className="post-author">👤 Autor del recurso</div>
+                <div className="post-author">👤 {t("community.author")}</div>
               </div>
             </div>
           ))}
